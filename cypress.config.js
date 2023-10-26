@@ -1,9 +1,12 @@
-import { defineConfig } from 'cypress';
+import { defineConfig } from 'cypress'
+import fs from 'fs'
 
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on('after:spec', (spec, results) =>
+        fs.unlinkSync(results.video)
+      )
     },
     baseUrl: 'http://localhost:5173',
     env: {
